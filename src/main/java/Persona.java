@@ -11,7 +11,7 @@ public class Persona {
     private Date fechaDefuncion;
     private String lugarNacimiento;
     private String estadoCivil;
-    private Date fechaMatrimonio; 
+    private Date fechaMatrimonio;
 
     public void setRut(String rut) {this.rut = rut;}
 

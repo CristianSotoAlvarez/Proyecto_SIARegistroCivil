@@ -13,6 +13,15 @@ public class Persona {
     private String estadoCivil;
     private Date fechaMatrimonio;
 
+    public void mostrar(){       
+        System.out.println("Nombre Completo: " + nombre);
+        System.out.println("Numero de R.U.T: " + rut); 
+    }
+
+    public void mostrar(String Nacimiento, SimpleDateFormat tipo){       
+        System.out.println("Fecha de Nacimiento: " + tipo.format(fechaNacimiento));
+        System.out.println("Lugar de Nacimiento: " + Nacimiento);     
+    }
     public void setRut(String rut) {this.rut = rut;}
 
     public void setNombre(String nombre) {this.nombre = nombre;}

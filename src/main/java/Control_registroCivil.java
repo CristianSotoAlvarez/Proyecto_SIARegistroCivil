@@ -4,7 +4,19 @@ import java.util.*;
 public class Control_registroCivil {
 
     private HashMap<String, Persona> personas = new HashMap<>();
+    private HashMap<String, ArrayList<Oficina>> oficinas = new HashMap<>();
 
+    public boolean addOficina(Oficina off) {
+        ArrayList<Oficina> listaOficinas = oficinas.get(off.getRegion());
+        if (listaOficinas == null) {
+            listaOficinas = new ArrayList<>();
+            oficinas.put(off.getRegion(), listaOficinas);
+        } else if (buscarOficina(listaOficinas, off.getComuna()) || buscarOficina(listaOficinas, off.getCodigoOficina())) {
+            return false;
+        }
+        listaOficinas.add(off);
+        return true;
+    }
 
     public boolean addPersona(Persona pp) {
         if (personas.containsKey(pp.getRut())) return false;
@@ -12,8 +24,55 @@ public class Control_registroCivil {
         return true;
     }
 
+    public boolean buscarOficina(ArrayList<Oficina> lista, String comuna) {
+        for (Oficina oficina : lista) {
+            if (oficina.getComuna().equals(comuna)) return true;
+        }
+        return false;
+    }
+
+    public boolean buscarOficina(ArrayList<Oficina> lista, int idOficina) {
+        for (Oficina oficina : lista) {
+            if (oficina.getCodigoOficina() == idOficina) return true;
+        }
+        return false;
+    }
+
     public boolean buscarPersona(String rut) {
         return personas.containsKey(rut);
+    }
+
+    public void imprimirOficinas(String region, String comuna) {
+        ArrayList<Oficina> listaOficinas = oficinas.get(region);
+        if (listaOficinas != null && !listaOficinas.isEmpty()) {
+            boolean encontrado = false;
+            for (Oficina oficina : listaOficinas) {
+                if (oficina.getComuna().equals(comuna)) {
+                    System.out.println("Region oficina : " + region);
+                    System.out.println("Comuna oficina : " + oficina.getComuna());
+                    System.out.println("Direccion Oficina : " + oficina.getDireccion() + "\n");
+                    encontrado = true;
+                }
+            }
+            if (!encontrado) {
+                System.out.println("ERROR: No existen oficinas en la comuna especificada para la region.");
+            }
+        } else {
+            System.out.println("ERROR: No existen oficinas para la region especificada.");
+        }
+    }
+
+    public void imprimirOficinas(String region) {
+        ArrayList<Oficina> listaOf = oficinas.get(region);
+        if (listaOf != null && !listaOf.isEmpty()) {
+            for (Oficina oficina : listaOf) {
+                System.out.println("Region oficina : " + region);
+                System.out.println("Comuna oficina : " + oficina.getComuna());
+                System.out.println("Direccion Oficina : " + oficina.getDireccion() + "\n");
+            }
+        } else {
+            System.out.println("ERROR: No existen oficinas para imprimir");
+        }
     }
 
     public void imprimirPersonas(String rut) {
@@ -21,9 +80,8 @@ public class Control_registroCivil {
         if (personas.containsKey(rut)) {
             Persona pp = personas.get(rut);
             System.out.println("Datos de la persona :\n");
-            System.out.println("Rut: " + pp.getRut());
-            System.out.println("Nombre completo : " + pp.getNombre());
-            System.out.println("Fecha de nacimiento : " + tipo.format(pp.getFechaNacimiento()));
+            pp.mostrar();
+            pp.mostrar(pp.getLugarNacimiento(), tipo);
             System.out.println("Estado civil : " + pp.getEstadoCivil());
         }
     }
@@ -34,10 +92,8 @@ public class Control_registroCivil {
         System.out.println("==================================================");
         System.out.println("           CERTIFICADO DE NACIMIENTO              ");
         System.out.println("==================================================");
-        System.out.println("Nombre Completo: " + pp.getNombre());
-        System.out.println("Numero de R.U.T: " + pp.getRut());
-        System.out.println("Fecha de Nacimiento: " + tipo.format(pp.getFechaNacimiento()));
-        System.out.println("Lugar de Nacimiento: " + pp.getLugarNacimiento());
+        pp.mostrar();
+        pp.mostrar(pp.getLugarNacimiento(), tipo);
         System.out.println("--------------------------------------------------");
         System.out.println("Fecha de Emision: " + tipo.format(new Date()));
         System.out.println("==================================================");
@@ -85,5 +141,5 @@ public class Control_registroCivil {
         if (pp.getFechaDefuncion() != null) return false;
         pp.setFechaDefuncion(tipo.format(fecha));
         return true;
-    }
+    }       
 }

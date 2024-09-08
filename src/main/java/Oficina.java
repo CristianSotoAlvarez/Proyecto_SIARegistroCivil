@@ -8,7 +8,7 @@ public class Oficina {
 
     public void setRegion(String region) {this.region = region; }
 
-    public void setComuna(String comuna) {this.comuna = comuna; }
+    public void setComuna(String comuna) {this.comuna = comuna;  }
 
     public void setDireccion(String direccion) {this.direccion = direccion;}
 

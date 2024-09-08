@@ -24,7 +24,7 @@ public class Persona {
     }
     public void setRut(String rut) {this.rut = rut;}
 
-    public void setNombre(String nombre) {this.nombre = nombre;}
+    public void setNombre(String nombre) {this.nombre = nombre; }
 
     public void setLugarNacimiento(String lugarNacimiento) {this.lugarNacimiento = lugarNacimiento;}
 

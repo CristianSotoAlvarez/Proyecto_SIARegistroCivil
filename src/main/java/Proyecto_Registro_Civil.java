@@ -4,7 +4,7 @@ public class Proyecto_Registro_Civil {
 
     static BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException  {
 
         int opcion;
         Control_registroCivil registroCivil = new Control_registroCivil();

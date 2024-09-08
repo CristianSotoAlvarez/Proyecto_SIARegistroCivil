@@ -24,7 +24,7 @@ public class Control_registroCivil {
         return true;
     }
 
-    public boolean buscarOficina(ArrayList<Oficina> lista, String comuna) {
+    public boolean buscarOficina(ArrayList<Oficina> lista, String comuna)  {
         for (Oficina oficina : lista) {
             if (oficina.getComuna().equals(comuna)) return true;
         }
